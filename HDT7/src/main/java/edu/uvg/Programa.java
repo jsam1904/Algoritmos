@@ -6,10 +6,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Clase principal para la gestión de productos utilizando un árbol binario de búsqueda.
+ * 
+ * @autor Javier Alvarado - 24546
+ */
 public class Programa {
-    private static final String CSV_FILE = "ruta_al_archivo.csv"; // Reemplaza con la ruta real
+    private static final String CSV_FILE = "c:/repo/HDT7/appliances.csv"; // Reemplaza con la ruta real
     private static BST bst = new BST(); // Asumiendo que BST es tu estructura de datos
 
+    /**
+     * Carga los datos desde un archivo CSV y los inserta en el árbol binario de búsqueda.
+     */
     private static void cargarDatosCSV() {
         try (CSVReader reader = new CSVReader(new FileReader(CSV_FILE))) {
             // Leer todas las líneas del CSV
@@ -58,7 +66,13 @@ public class Programa {
         }
     }
 
-    // Método auxiliar para encontrar el índice de una columna
+    /**
+     * Encuentra el índice de una columna en la cabecera del archivo CSV.
+     * 
+     * @param cabecera La cabecera del archivo CSV.
+     * @param nombreColumna El nombre de la columna a buscar.
+     * @return El índice de la columna, o -1 si no se encuentra.
+     */
     private static int encontrarIndice(String[] cabecera, String nombreColumna) {
         for (int i = 0; i < cabecera.length; i++) {
             if (cabecera[i].equalsIgnoreCase(nombreColumna)) {
@@ -68,7 +82,9 @@ public class Programa {
         return -1;
     }
 
-    // Clase Producto (ejemplo, ajusta según tu implementación)
+    /**
+     * Clase que representa un producto.
+     */
     static class Producto {
         String sku;
         double priceRetail;
@@ -76,6 +92,15 @@ public class Programa {
         String productName;
         String category;
 
+        /**
+         * Constructor para crear un nuevo producto.
+         * 
+         * @param sku El SKU del producto.
+         * @param priceRetail El precio de venta al por menor del producto.
+         * @param priceCurrent El precio actual del producto.
+         * @param productName El nombre del producto.
+         * @param category La categoría del producto.
+         */
         Producto(String sku, double priceRetail, double priceCurrent, String productName, String category) {
             this.sku = sku;
             this.priceRetail = priceRetail;
@@ -85,13 +110,25 @@ public class Programa {
         }
     }
 
-    // Clase BST (ejemplo, ajusta según tu implementación)
+    /**
+     * Clase que representa un árbol binario de búsqueda (BST).
+     */
     static class BST {
+        /**
+         * Inserta un producto en el árbol binario de búsqueda.
+         * 
+         * @param producto El producto a insertar.
+         */
         void insertar(Producto producto) {
             // Implementación del BST aquí
         }
     }
 
+    /**
+     * Método principal que ejecuta el programa.
+     * 
+     * @param args Argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
         cargarDatosCSV();
     }

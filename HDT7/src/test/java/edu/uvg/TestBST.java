@@ -3,8 +3,16 @@ package edu.uvg;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Clase de prueba para la clase BST.
+ * 
+ * @autor Javier Alvarado - 24546
+ */
 public class TestBST {
 
+    /**
+     * Prueba la inserción y búsqueda de productos en el árbol binario de búsqueda.
+     */
     @Test
     public void testInsertAndSearch() {
         BST<Producto> bst = new BST<>();

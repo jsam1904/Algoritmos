@@ -9,10 +9,20 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase principal para la gestión de productos utilizando un árbol binario de búsqueda.
+ * 
+ * @autor Javier Alvarado - 24546
+ */
 public class Main {
     private static BST<Producto> bst = new BST<>();
     private static final String CSV_FILE = "c:/repo/HDT7/appliances.csv"; 
 
+    /**
+     * Método principal que ejecuta el menú de opciones.
+     * 
+     * @param args Argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -56,6 +66,9 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Carga los datos desde un archivo CSV y los inserta en el árbol binario de búsqueda.
+     */
     private static void cargarDatosCSV() {
         try (CSVReader reader = new CSVReader(new FileReader(CSV_FILE))) {
             List<String[]> lineas = reader.readAll();
@@ -83,8 +96,8 @@ public class Main {
             for (int i = 1; i < lineas.size(); i++) {
                 String[] datos = lineas.get(i);
                 String sku = datos[idxSKU];
-                double priceRetail = Double.parseDouble(datos[idxPriceRetail]);
-                double priceCurrent = Double.parseDouble(datos[idxPriceCurrent]);
+                double priceRetail = convertirPrecio(datos[idxPriceRetail]);
+                double priceCurrent = convertirPrecio(datos[idxPriceCurrent]);
                 String productName = datos[idxProductName];
                 String category = datos[idxCategory];
 
@@ -101,6 +114,25 @@ public class Main {
         }
     }
 
+    /**
+     * Convierte una cadena de texto que representa un precio a un número.
+     * 
+     * @param precioTexto La cadena de texto que representa el precio.
+     * @return El precio convertido a un número.
+     */
+    private static double convertirPrecio(String precioTexto) {
+        // Eliminar símbolos de moneda y comas
+        precioTexto = precioTexto.replaceAll("[^\\d.]", "");
+        return Double.parseDouble(precioTexto);
+    }
+
+    /**
+     * Encuentra el índice de una columna en la cabecera del archivo CSV.
+     * 
+     * @param cabecera La cabecera del archivo CSV.
+     * @param columna El nombre de la columna a buscar.
+     * @return El índice de la columna, o -1 si no se encuentra.
+     */
     private static int encontrarIndice(String[] cabecera, String columna) {
         for (int i = 0; i < cabecera.length; i++) {
             if (cabecera[i].equalsIgnoreCase(columna)) {
@@ -110,6 +142,11 @@ public class Main {
         return -1;
     }
 
+    /**
+     * Busca un producto por su SKU en el árbol binario de búsqueda.
+     * 
+     * @param scanner El objeto Scanner para leer la entrada del usuario.
+     */
     private static void buscarProductoPorSKU(Scanner scanner) {
         System.out.print("Ingrese el SKU a buscar: ");
         String sku = scanner.nextLine();
@@ -124,11 +161,17 @@ public class Main {
         }
     }
 
+    /**
+     * Lista los productos ordenados por SKU.
+     */
     private static void listarPorSKU() {
         System.out.println("\nProductos ordenados por SKU:");
         bst.inOrdenAscendente();
     }
 
+    /**
+     * Lista los productos ordenados por precio ascendente.
+     */
     private static void listarPorPrecioAscendente() {
         List<Producto> lista = bst.toListInOrder();
         Collections.sort(lista, Comparator.comparingDouble(Producto::getPrice_Current));
@@ -138,6 +181,9 @@ public class Main {
         }
     }
 
+    /**
+     * Lista los productos ordenados por precio descendente.
+     */
     private static void listarPorPrecioDescendente() {
         List<Producto> lista = bst.toListInOrder();
         Collections.sort(lista, Collections.reverseOrder(Comparator.comparingDouble(Producto::getPrice_Current)));
