@@ -1,6 +1,6 @@
 package edu.uvg;
 
-public class Producto {
+public class Producto implements Comparable<Producto> {
     private String SKU;
     private double Price_Retail;
     private double Price_Current;
@@ -23,7 +23,27 @@ public class Producto {
     public String getProduct_Name() { return Product_Name; }
     public String getCategory() { return Category; }
 
-    // toString para mostrar la información
+    // Comparación por SKU
+    @Override
+    public int compareTo(Producto otro) {
+        return this.SKU.compareTo(otro.SKU);
+    }
+
+    // Método equals basado en SKU
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Producto otro = (Producto) obj;
+        return SKU.equals(otro.SKU);
+    }
+
+    @Override
+    public int hashCode() {
+        return SKU.hashCode();
+    }
+
+    // Representación en texto
     @Override
     public String toString() {
         return "SKU: " + SKU + ", Price_Retail: " + Price_Retail + ", Price_Current: " + Price_Current +
