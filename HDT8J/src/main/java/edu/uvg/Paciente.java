@@ -1,4 +1,4 @@
-package main.java.edu.uvg;
+package edu.uvg;
 
 public class Paciente implements Comparable<Paciente> {
     private String nombre;

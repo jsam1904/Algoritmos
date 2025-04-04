@@ -1,4 +1,4 @@
-// Removed package declaration
+package edu.uvg;
 
 import java.util.PriorityQueue;
 
