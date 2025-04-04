@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Clase que implementa un heap basado en un vector (ArrayList).
  * 
  * @param <E> El tipo de elementos almacenados en el heap, que deben ser comparables.
+ * @autor Javier Alvarado - 24546
  */
 public class VectorHeap<E extends Comparable<E>> {
     private ArrayList<E> heap;
